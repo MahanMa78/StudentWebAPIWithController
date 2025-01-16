@@ -31,16 +31,9 @@ namespace studentWebAPIControllers.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"));
 
                     b.Property<string>("GradeName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.HasKey("GradeId");
-
-                    b.HasIndex("StudentId")
-                        .IsUnique();
 
                     b.ToTable("Grades");
                 });
@@ -60,7 +53,7 @@ namespace studentWebAPIControllers.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GradeId")
+                    b.Property<int>("GradeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Height")
@@ -83,33 +76,20 @@ namespace studentWebAPIControllers.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("Grade", b =>
+            modelBuilder.Entity("Student", b =>
                 {
-                    b.HasOne("Student", "Student")
-                        .WithOne("Grade")
-                        .HasForeignKey("Grade", "StudentId")
+                    b.HasOne("Grade", "Grade")
+                        .WithMany("Students")
+                        .HasForeignKey("GradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Student", b =>
-                {
-                    b.HasOne("Grade", null)
-                        .WithMany("Students")
-                        .HasForeignKey("GradeId");
+                    b.Navigation("Grade");
                 });
 
             modelBuilder.Entity("Grade", b =>
                 {
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("Student", b =>
-                {
-                    b.Navigation("Grade")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
