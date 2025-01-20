@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 namespace studentWebAPIControllers;
+//namespace SwashbuckleSample.Models;
 
+#pragma warning disable CS1591
 public class SchoolDbContext : DbContext
 {
     //public SchoolDbContext(){ }
@@ -29,3 +31,4 @@ public class SchoolDbContext : DbContext
     //        .OnDelete(DeleteBehavior.Cascade);
     //}
 }
+#pragma warning disable CS1591

@@ -16,6 +16,7 @@ public class StudentController : ControllerBase
 
     // }
     static List<Student> Students {get;} = new List<Student>();
+
     static List<Grade> Grades {get;} = new List<Grade>();
     static int nextId = 1;
     // GET all action
@@ -36,7 +37,7 @@ public class StudentController : ControllerBase
     }
 
     // Get By gradeId action
-    [HttpGet("{id}")]
+    [HttpGet("GradeId/{id}")]
     public ActionResult<List<Student>> GetByGradeId(int gradeId)
     {
         // var grade = GradeService.Get(gradeId);
@@ -49,13 +50,27 @@ public class StudentController : ControllerBase
 
     // POST action
     [HttpPost]
-    public IActionResult Add(Student student)
+    public IActionResult Add(StudentDto dto)
     {
+        Student student = new Student();
+        student.Id = dto.Id;
+        student.Weight = dto.Weight;
+        student.Height = dto.Height;
+        student.Photo = dto.Photo;
+        student.DateOfBirth = dto.DateOfBirth;
+        student.FirstName = dto.FirstName;
+        student.LastName = dto.LastName;
+        student.GradeId = dto.GradeId;  
+
+
         // StudentService.Add(student);
         // return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
-        student.Id = nextId++;
-        Students.Add(student);
-        return CreatedAtAction(nameof(Get),new { id = student.Id }, student );
+        //student.Id = nextId++;
+        //students
+        //Students.Add(student);
+        //return CreatedAtAction(nameof(Get),new { id = student.Id }, student );
+
+
     }
 
     // PUT action
